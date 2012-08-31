@@ -1,0 +1,5 @@
+clearpath-remote-support (0.1) precise; urgency=low
+
+  * Added Clearpath scripts for connecting to a customer PC.
+
+ -- Alex Bencz <abencz@clearpathrobotics.com>  Mon, 27 Aug 2012 17:00:32 -0400
