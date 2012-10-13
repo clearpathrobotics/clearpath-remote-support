@@ -1,6 +1,46 @@
 #!/bin/sh
-echo "This script allows root access to this machine by Clearpath Robotics employees."
-echo "Please log in with password \"clearpath\" and await instructions."
-echo "To shut down, press CTRL-C"
+
+# Connection consent
+echo "This script allows access to this machine by the Clearpath Robotics team"
+while true; do
+    echo "Do you consent to the Clearpath Robotics team having remote access to the system this script is running on? (yes/no)"
+    read answer
+    if [ "$answer" = "no" ]; then
+        echo "Exiting..."
+        sleep 1
+        clear
+        exit 
+    elif [ "$answer" = "yes" ]; then
+        break;
+    fi
+done;
+echo "Please have the username and password for this specific computer on hand for the support team"
+echo "When the password prompt appears, use password \"clearpath\"."
+echo ""
+
+# Check to make sure we can get a connection
+command -v wget > /dev/null 2>&1 && wget_avail=true || wget_avail=false
+if [ "$wget_avail" = "false"  ]; then
+    echo ""
+    echo "WARNING:"
+    echo "wget utility doesn't exist, please inform the support team"
+    echo "Connection diagnostic may not be completely accurate"
+    echo ""
+fi
+echo "Testing internet connection..."
+ping -q -w 1 -c 1 8.8.8.8 > /dev/null && ping_nok=false || ping_nok=true
+wget -q --tries=5 google.com -O /dev/null > /dev/null && wget_nok=false || wget_nok=true
+if ( $ping_nok && $wget_nok ); then 
+    echo "No internet connection available, please check connection and try again"
+    exit
+fi
+
+wget -q --tries=5 internal.clearpathrobotics.com -O /dev/null > /dev/null && wget_nok=false || wget_nok=true
+if ( $wget_nok && $wget_avail ); then 
+    echo "Unable to locate Clearpath Robotics servers, please advise Clearpath Support of this issue"
+    exit 
+fi
+
+echo "Connection OK. Connecting to remote server..."
 export REMOTE_PORT=10012
-ssh -N -R ${REMOTE_PORT}:localhost:22 remoteassist@internal.clearpathrobotics.com -p 1222 -oStrictHostKeyChecking=no -oCheckHostIP=no
+ssh -R ${REMOTE_PORT}:localhost:22 remoteassist@internal.clearpathrobotics.com -p 1222 -oStrictHostKeyChecking=no -oCheckHostIP=no 
