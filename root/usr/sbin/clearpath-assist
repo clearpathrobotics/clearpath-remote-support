@@ -35,7 +35,7 @@ if ( $ping_nok && $wget_nok ); then
     exit
 fi
 
-wget -q --tries=5 internal.clearpathrobotics.com -O /dev/null > /dev/null && wget_nok=false || wget_nok=true
+echo "" | socket internal.clearpathrobotics.com 1222 > /dev/null && wget_nok=false || wget_nok=true
 if ( $wget_nok && $wget_avail ); then 
     echo "Unable to locate Clearpath Robotics servers, please advise Clearpath Support of this issue"
     exit 

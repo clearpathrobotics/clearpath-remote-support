@@ -1,3 +1,10 @@
+clearpath-remote-support (0.3) precise; urgency=low
+
+  * Fixed bug in checking server status. Now check using "socket" instead 
+    of "wget".
+
+ -- Alex Bencz <abencz@clearpathrobotics.com>  Mon, 06 May 2013 02:06:12 -0400
+
 clearpath-remote-support (0.1) precise; urgency=low
 
   * Added Clearpath scripts for connecting to a customer PC.

@@ -10,6 +10,6 @@ Homepage: https://github.com/clearpathrobotics/clearpath-remote-support
 
 Package: clearpath-remote-support
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, socket
 Description: Clearpath Robotics remote support scripts.
  Scripts for creating a remote connection to a customer PC.
