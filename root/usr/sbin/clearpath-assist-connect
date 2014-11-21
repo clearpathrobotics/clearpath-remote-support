@@ -4,4 +4,4 @@ echo "Please instruct customer to run remote access script"
 echo "Enter username of remote machine (ex. \"turtlebot\" for TurtleBots): "
 read USERNAME
 export REMOTE_PORT=10012
-ssh ${USERNAME}@harvey.local -p ${REMOTE_PORT}
+ssh ${USERNAME}@harvey.internal.clearpathrobotics.com -p ${REMOTE_PORT}
